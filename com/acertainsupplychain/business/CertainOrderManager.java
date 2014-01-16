@@ -1,8 +1,13 @@
 package com.acertainsupplychain.business;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -20,14 +25,23 @@ public class CertainOrderManager implements OrderManager{
 	private ExecutorService exec;
 	private ConcurrentHashMap<Integer, List<StepStatus>> workFlowStatusMap;
 	private AtomicInteger workFlowID;
+	private HashMap<Integer, String> itemSupplierAddressMap;
 	
 	public CertainOrderManager()
 	{
 		exec = Executors.newFixedThreadPool(SupplyChainConstants.NUMBER_OF_ORDER_MANAGER_THREADS);
 		workFlowID = new AtomicInteger(0);
+		initializeItemSupplierMappings();
 	}
 	
-	public static CertainOrderManager getInstance() {
+	private void initializeItemSupplierMappings() {
+		itemSupplierAddressMap = new HashMap<Integer, String>();
+		itemSupplierAddressMap.put(1, "localhost:8083");
+		itemSupplierAddressMap.put(2, "localhost:8084");
+		itemSupplierAddressMap.put(3, "localhost:8085");
+	}
+
+	public static CertainOrderManager getInstance() { 
 		if (orderManager != null) {
 			return orderManager;
 		}
@@ -50,8 +64,12 @@ public class CertainOrderManager implements OrderManager{
 		
 		List<Future<StepStatus>> results = new ArrayList<Future<StepStatus>>(workFlowSize);
 		for (OrderStep step : steps)
-		{
-			OrderStepTask task = new OrderStepTask(step);
+		{		
+			int supplierId = step.getSupplierId();
+			if (!itemSupplierAddressMap.containsKey(supplierId))
+				throw new OrderProcessingException("Step malformed, no item supplier with ID: " + supplierId);
+			
+			OrderStepTask task = new OrderStepTask(step, itemSupplierAddressMap.get(step.getSupplierId()));
 			results.add(exec.submit(task));
 		}
 		

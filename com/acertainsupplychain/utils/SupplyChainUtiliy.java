@@ -65,8 +65,12 @@ public final class SupplyChainUtiliy {
 				throw new OrderProcessingException(
 						"Response XML deserialization failed.", e);
 			}
-			Object response = deserializeXMLStringToObject(responseXMLstring);
-			return response;
+			SupplyChainResponse response = (SupplyChainResponse) deserializeXMLStringToObject(responseXMLstring);
+			OrderProcessingException ex = response.getException();
+			if (ex != null)
+				throw ex;
+			
+			return response.getResponse();
 		}
 		 
 		else if (exchangeState == HttpExchange.STATUS_EXCEPTED) {
