@@ -11,7 +11,7 @@ public class OrderStepTask implements Callable<StepStatus>{
 	private OrderStep step;
 	private CertainItemSupplierHTTPProxy proxy;
 	
-	public OrderStepTask(OrderStep step, String address) {
+	public OrderStepTask(OrderStep step, String address) throws Exception {
 		this.step = step;
 		this.proxy = new CertainItemSupplierHTTPProxy(address);
 	}

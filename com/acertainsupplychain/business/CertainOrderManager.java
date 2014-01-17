@@ -69,7 +69,12 @@ public class CertainOrderManager implements OrderManager{
 			if (!itemSupplierAddressMap.containsKey(supplierId))
 				throw new OrderProcessingException("Step malformed, no item supplier with ID: " + supplierId);
 			
-			OrderStepTask task = new OrderStepTask(step, itemSupplierAddressMap.get(step.getSupplierId()));
+			OrderStepTask task = null;
+			try {
+				task = new OrderStepTask(step, itemSupplierAddressMap.get(step.getSupplierId()));
+			} catch (Exception e) {
+				throw new OrderProcessingException("Problems starting up item supplier proxy");
+			}
 			results.add(exec.submit(task));
 		}
 		
