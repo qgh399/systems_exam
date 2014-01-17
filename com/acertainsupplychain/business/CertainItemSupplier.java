@@ -10,7 +10,15 @@ public class CertainItemSupplier implements ItemSupplier{
 
 	private static CertainItemSupplier itemSupplier;
 	
-	
+	public static CertainItemSupplier getInstance() {
+		if (itemSupplier != null) {
+			return itemSupplier;
+		}
+		else {
+			itemSupplier = new CertainItemSupplier();
+		}
+		return itemSupplier;
+	}
 	
 	@Override
 	public synchronized void executeStep(OrderStep step) throws OrderProcessingException {
@@ -24,5 +32,7 @@ public class CertainItemSupplier implements ItemSupplier{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
 
 }

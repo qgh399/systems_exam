@@ -24,7 +24,7 @@ public class ItemSupplierHTTPMessageHandler extends AbstractHandler{
 		
 		String requestURI;
 		
-		response.setContentType("text/html;charset=utf-8");
+		response.setContentType("text/html;charset=utf-8"); 
 		response.setStatus(HttpServletResponse.SC_OK);
 		requestURI = request.getRequestURI();
 		
@@ -37,8 +37,7 @@ public class ItemSupplierHTTPMessageHandler extends AbstractHandler{
 				SupplyChainResponse supplyChainResponse = new SupplyChainResponse();
 				try 
 				{
-					supplyChainResponse.setResponse(
-							CertainItemSupplier.getInstance().executeStep(step));
+					CertainItemSupplier.getInstance().executeStep(step);
 				}
 				catch (OrderProcessingException e) {
 					supplyChainResponse.setException(e);
