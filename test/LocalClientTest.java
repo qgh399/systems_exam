@@ -21,14 +21,14 @@ public class LocalClientTest {
 	
 	private static CertainItemSupplierHTTPProxy localClient;
 	private static CertainItemSupplier itemSupplier;
-	private static String serverAddress = "http://localhost:8082";
+	private static String serverAddress = "http://localhost:8083";
 	private static Set<Integer> supplierItemIds;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() {
 		/*
 		 * We assume that before running this test a item supplier server
-		 * has been started on localhost:8082 and initialized with the same
+		 * has been started on localhost:8083 and initialized with the same
 		 * items as the one below (IDs 101, 102 and 103).
 		 */
 		try {

@@ -30,15 +30,16 @@ public class CertainOrderManager implements OrderManager{
 	public CertainOrderManager()
 	{
 		exec = Executors.newFixedThreadPool(SupplyChainConstants.NUMBER_OF_ORDER_MANAGER_THREADS);
-		workFlowID = new AtomicInteger(0);
+		workFlowID = new AtomicInteger(1);
+		workFlowStatusMap = new ConcurrentHashMap<Integer, List<StepStatus>>();
 		initializeItemSupplierMappings();
 	}
 	
 	private void initializeItemSupplierMappings() {
 		itemSupplierAddressMap = new HashMap<Integer, String>();
-		itemSupplierAddressMap.put(1, "localhost:8083");
-		itemSupplierAddressMap.put(2, "localhost:8084");
-		itemSupplierAddressMap.put(3, "localhost:8085");
+		itemSupplierAddressMap.put(8083, "http://localhost:8083");
+		itemSupplierAddressMap.put(8084, "http://localhost:8084");
+		itemSupplierAddressMap.put(8085, "http://localhost:8085");
 	}
 
 	public static CertainOrderManager getInstance() { 
