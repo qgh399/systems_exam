@@ -1,7 +1,10 @@
 package com.acertainsupplychain.utils;
 
 import java.io.IOException;
+import java.io.Reader;
 import java.io.UnsupportedEncodingException;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.eclipse.jetty.client.ContentExchange;
 import org.eclipse.jetty.client.HttpClient;
@@ -84,5 +87,38 @@ public final class SupplyChainUtiliy {
 					"Request unknown failure.");
 		}
 		
+	}
+	
+	/**
+	 * Returns the message of the request as a string
+	 * 
+	 * @param request
+	 * @return xml string
+	 * @throws IOException
+	 */
+	public static String extractPOSTDataFromRequest(HttpServletRequest request)
+			throws IOException {
+		Reader reader = request.getReader();
+		int len = request.getContentLength();
+
+		// Request must be read into a char[] first
+		char res[] = new char[len];
+		reader.read(res);
+		reader.close();
+		return new String(res);
+	}
+	
+	public static SupplyChainMessageTag convertURItoMessageTag(String requestURI) {
+
+		try {
+			SupplyChainMessageTag messageTag = SupplyChainMessageTag
+					.valueOf(requestURI.substring(1).toUpperCase());
+			return messageTag;
+		} catch (IllegalArgumentException ex) {
+			; // Enum type matching failed so non supported message
+		} catch (NullPointerException ex) {
+			; // RequestURI was empty
+		}
+		return null;
 	}
 }

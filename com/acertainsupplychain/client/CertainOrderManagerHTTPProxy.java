@@ -12,6 +12,7 @@ import com.acertainsupplychain.business.OrderManager;
 import com.acertainsupplychain.business.OrderStep;
 import com.acertainsupplychain.utils.InvalidWorkflowException;
 import com.acertainsupplychain.utils.OrderProcessingException;
+import com.acertainsupplychain.utils.SupplyChainMessageTag;
 import com.acertainsupplychain.utils.SupplyChainUtiliy;
 
 public class CertainOrderManagerHTTPProxy implements OrderManager {
@@ -24,7 +25,7 @@ public class CertainOrderManagerHTTPProxy implements OrderManager {
 		String orderStepsXmlString = SupplyChainUtiliy.serializeObjectToXMLString(steps);
 		Buffer requestContent = new ByteArrayBuffer(orderStepsXmlString);
 		
-		String urlString = serverAddress + "/REGISTER";
+		String urlString = serverAddress + "/" + SupplyChainMessageTag.REGISTER;
 		ContentExchange exchange = new ContentExchange();
 		exchange.setURL(urlString);
 		exchange.setMethod("POST");

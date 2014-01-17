@@ -13,6 +13,7 @@ import com.acertainsupplychain.business.ItemSupplier;
 import com.acertainsupplychain.business.OrderStep;
 import com.acertainsupplychain.utils.InvalidItemException;
 import com.acertainsupplychain.utils.OrderProcessingException;
+import com.acertainsupplychain.utils.SupplyChainMessageTag;
 import com.acertainsupplychain.utils.SupplyChainUtiliy;
 
 public class CertainItemSupplierHTTPProxy implements ItemSupplier{
@@ -29,7 +30,7 @@ public class CertainItemSupplierHTTPProxy implements ItemSupplier{
 		String stepXmlString = SupplyChainUtiliy.serializeObjectToXMLString(step);
 		Buffer requestContent = new ByteArrayBuffer(stepXmlString);
 		
-		String urlString = serverAddress + "/EXECUTE";
+		String urlString = serverAddress + "/" + SupplyChainMessageTag.EXECUTE;
 		ContentExchange exchange = new ContentExchange();
 		exchange.setURL(urlString);
 		exchange.setMethod("POST");

@@ -11,6 +11,10 @@ public class SupplyChainResponse {
 		this.setResponse(response);
 	}
 	
+	public SupplyChainResponse() {
+		
+	}
+
 	public OrderProcessingException getException() {
 		return exception;
 	}
