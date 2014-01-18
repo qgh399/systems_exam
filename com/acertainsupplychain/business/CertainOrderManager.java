@@ -18,6 +18,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import com.acertainsupplychain.utils.InvalidWorkflowException;
 import com.acertainsupplychain.utils.OrderProcessingException;
 import com.acertainsupplychain.utils.SupplyChainConstants;
+import com.acertainsupplychain.utils.SupplyChainLogger;
 
 public class CertainOrderManager implements OrderManager{
 
@@ -26,6 +27,7 @@ public class CertainOrderManager implements OrderManager{
 	private ConcurrentHashMap<Integer, List<StepStatus>> workFlowStatusMap;
 	private AtomicInteger workFlowID;
 	private HashMap<Integer, String> itemSupplierAddressMap;
+	private SupplyChainLogger logger;
 	
 	public CertainOrderManager()
 	{
@@ -83,6 +85,9 @@ public class CertainOrderManager implements OrderManager{
 			results.add(exec.submit(task));
 		}
 		
+		// durable logging call
+		logger.log(steps);
+		
 		waitForItemSupplierUpdates(id, results);
 		return id;
 	}
@@ -114,6 +119,10 @@ public class CertainOrderManager implements OrderManager{
 		if (!workFlowStatusMap.containsKey(orderWorkflowId))
 			throw new InvalidWorkflowException("No workflow ID: " + orderWorkflowId + " found");
 		return workFlowStatusMap.get(orderWorkflowId);
+	}
+
+	public void initializeLogger(SupplyChainLogger logger) {
+		this.logger = logger;
 	}
 
 }
