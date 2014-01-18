@@ -54,7 +54,15 @@ public class CertainOrderManager implements OrderManager{
 	
 	@Override
 	public int registerOrderWorkflow(List<OrderStep> steps) throws OrderProcessingException {
-		// TODO: Log workflow durably
+		/* 
+		 * Validate input
+		 */
+		for (OrderStep step : steps)
+		{		
+			int supplierId = step.getSupplierId();
+			if (!itemSupplierAddressMap.containsKey(supplierId))
+				throw new OrderProcessingException("Step malformed, no item supplier with ID: " + supplierId);
+		}
 		
 		// An atomic integer is used to represent the ID for each workflow
 		// to make sure that different threads accessing the same OrderManager
@@ -65,11 +73,7 @@ public class CertainOrderManager implements OrderManager{
 		
 		List<Future<StepStatus>> results = new ArrayList<Future<StepStatus>>(workFlowSize);
 		for (OrderStep step : steps)
-		{		
-			int supplierId = step.getSupplierId();
-			if (!itemSupplierAddressMap.containsKey(supplierId))
-				throw new OrderProcessingException("Step malformed, no item supplier with ID: " + supplierId);
-			
+		{
 			OrderStepTask task = null;
 			try {
 				task = new OrderStepTask(step, itemSupplierAddressMap.get(step.getSupplierId()));

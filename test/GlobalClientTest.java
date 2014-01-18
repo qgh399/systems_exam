@@ -23,6 +23,13 @@ public class GlobalClientTest {
 	
 	@BeforeClass
 	public static void setUpBeforeClass() {
+		/*
+		 * We assume before running this test that an order manager
+		 * server has been started on localhost:8081 and two item
+		 * supplier servers on localhost:8083 and localhost:8084
+		 * with the corresponding items initialized on each one
+		 * (see ItemSupplierHTTPServer.java).	
+		 */
 		try {
 			globalClient = new CertainOrderManagerHTTPProxy();
 			globalClient.setServerAddress(serverAddress);
