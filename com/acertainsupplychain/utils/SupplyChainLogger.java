@@ -1,5 +1,6 @@
 package com.acertainsupplychain.utils;
 
+import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.List;
 
@@ -7,8 +8,19 @@ import com.acertainsupplychain.business.ItemQuantity;
 import com.acertainsupplychain.business.OrderStep;
 
 public class SupplyChainLogger {
-	private String logFilePath;
 	private PrintWriter writer;
+	
+	public SupplyChainLogger(String logFilePath) throws OrderProcessingException {
+		try {
+			this.writer = new PrintWriter(logFilePath);
+		} catch (FileNotFoundException e) {
+			throw new OrderProcessingException("Failed initializing logger", e);
+		}
+	}
+	
+	public SupplyChainLogger() {
+		;
+	}
 
 	public synchronized void log(List<OrderStep> steps) {
 		String stepLogLine = null;
