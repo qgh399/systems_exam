@@ -9,8 +9,10 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.acertainsupplychain.client.CertainOrderManagerHTTPProxy;
+import com.acertainsupplychain.utils.InvalidWorkflowException;
 import com.acertainsupplychain.utils.OrderProcessingException;
 import com.acertainsupplychain.business.CertainOrderManager;
+import com.acertainsupplychain.business.OrderManager.StepStatus;
 import com.acertainsupplychain.business.OrderStep;
 import com.acertainsupplychain.business.ItemQuantity;
 
@@ -31,7 +33,7 @@ public class GlobalClientTest {
 	}
 	
 	@Test
-	public void workflowRegistrationIncrementsId() {
+	public void workflowRegistrationSucceedes() {
 		List<OrderStep> workflow = new ArrayList<OrderStep>();
 		
 		List<ItemQuantity> order1 = new ArrayList<ItemQuantity>();
@@ -61,6 +63,18 @@ public class GlobalClientTest {
 		}
 		
 		assertEquals(1, firstWorkflowId);
+		
+		List<StepStatus> stepStatus = null;
+		try {
+			stepStatus = globalClient.getOrderWorkflowStatus(firstWorkflowId);
+		} catch (InvalidWorkflowException e) {
+			e.printStackTrace();
+			fail();
+		}
+		
+		for (StepStatus st : stepStatus) {
+			assertEquals(StepStatus.SUCCESSFUL, st);
+		}
 	}
 	
 }

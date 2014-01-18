@@ -1,5 +1,5 @@
 package com.acertainsupplychain.utils;
 
 public enum SupplyChainMessageTag {
-	REGISTER, EXECUTE, ORDERSPERITEM
+	REGISTER, EXECUTE, ORDERSPERITEM, GETSTATUS
 }

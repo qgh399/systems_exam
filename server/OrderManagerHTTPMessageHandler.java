@@ -1,6 +1,7 @@
 package server;
 
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -12,6 +13,7 @@ import org.eclipse.jetty.server.handler.AbstractHandler;
 
 import com.acertainsupplychain.business.CertainOrderManager;
 import com.acertainsupplychain.business.OrderStep;
+import com.acertainsupplychain.utils.InvalidWorkflowException;
 import com.acertainsupplychain.utils.OrderProcessingException;
 import com.acertainsupplychain.utils.SupplyChainMessageTag;
 import com.acertainsupplychain.utils.SupplyChainResponse;
@@ -49,6 +51,22 @@ public class OrderManagerHTTPMessageHandler extends AbstractHandler {
 				response.getWriter().println(
 						SupplyChainUtiliy.serializeObjectToXMLString(supplyChainResponse));
 				
+				break;
+				
+			case GETSTATUS:
+				String workflowIdString = URLDecoder.decode(request.getParameter("workflowid"), "UTF-8");
+				supplyChainResponse = new SupplyChainResponse();
+				
+				int workflowId = Integer.parseInt(workflowIdString);
+				try {
+					supplyChainResponse.setResponse(
+							CertainOrderManager.getInstance().getOrderWorkflowStatus(workflowId));
+				} catch (InvalidWorkflowException e) {
+					supplyChainResponse.setException(e);
+				}
+				
+				response.getWriter().println(
+						SupplyChainUtiliy.serializeObjectToXMLString(supplyChainResponse));
 				break;
 				
 			default:

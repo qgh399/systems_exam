@@ -1,6 +1,7 @@
 package com.acertainsupplychain.client;
 
-import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 
 import org.eclipse.jetty.client.ContentExchange;
@@ -8,6 +9,8 @@ import org.eclipse.jetty.client.HttpClient;
 import org.eclipse.jetty.io.Buffer;
 import org.eclipse.jetty.io.ByteArrayBuffer;
 import org.eclipse.jetty.util.thread.QueuedThreadPool;
+
+import server.SupplyChainHTTPServerUtility;
 
 import com.acertainsupplychain.business.OrderManager;
 import com.acertainsupplychain.business.OrderStep;
@@ -56,10 +59,29 @@ public class CertainOrderManagerHTTPProxy implements OrderManager {
 	}
 
 	@Override
-	public List<StepStatus> getOrderWorkflowStatus(int orderWorkflowId)
-			throws InvalidWorkflowException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<StepStatus> getOrderWorkflowStatus(int orderWorkflowId) throws InvalidWorkflowException {
+		
+		String urlEncodedWorkflowId = null;
+		try {
+			urlEncodedWorkflowId = URLEncoder.encode(Integer.toString(orderWorkflowId), "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			throw new InvalidWorkflowException("Could not encode orderWorkflowId: " + orderWorkflowId);
+		}
+		
+		String urlString = serverAddress + "/" 
+				+ SupplyChainMessageTag.GETSTATUS
+				+ "?workflowid=" + urlEncodedWorkflowId;
+		ContentExchange exchange = new ContentExchange();
+		exchange.setURL(urlString);
+		
+		List<StepStatus> result = null;
+		try {
+			result = (List<StepStatus>) SupplyChainUtiliy.sendAndRecv(client, exchange);
+		} catch (OrderProcessingException e) {
+			throw (InvalidWorkflowException) e;
+		}
+		
+		return result;
 	}
 
 }
