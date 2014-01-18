@@ -89,23 +89,16 @@ public class CertainOrderManager implements OrderManager{
 
 	private void waitForItemSupplierUpdates(int id, List<Future<StepStatus>> results) throws OrderProcessingException {
 		List<StepStatus> workFlowStatusList = workFlowStatusMap.get(id);
-		boolean stepFailed;
 		for (int i = 0; i < results.size(); i++)
 		{
-			stepFailed = false;
 			try {
 				// A blocking call waiting to see if the step was successful
 				workFlowStatusList.set(i, results.get(i).get());
 			} catch (InterruptedException e) {
-				stepFailed = true;
 				throw new OrderProcessingException("Error when waiting for item supplier updates", e);
 			} catch (ExecutionException e) {
-				stepFailed = true;
 				throw new OrderProcessingException("Error when waiting for item supplier updates", e);
 			}
-			
-			if (stepFailed)
-				workFlowStatusList.set(i, StepStatus.FAILED);
 		}
 	}
 
