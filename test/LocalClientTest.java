@@ -27,7 +27,7 @@ public class LocalClientTest {
 	@BeforeClass
 	public static void setUpBeforeClass() {
 		/*
-		 * We assume that before running this test a item supplier server
+		 * We assume that before running these tests a item supplier server
 		 * has been started on localhost:8083 and initialized with the same
 		 * items as the one below (IDs 101, 102 and 103).
 		 */
