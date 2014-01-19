@@ -36,10 +36,19 @@ public class ItemSupplierAtomicityTest {
 		
 		itemSupplier.initializeItems(supplierItemIds);
 		
-		exec = Executors.newFixedThreadPool(2);
+		exec = Executors.newFixedThreadPool(4);
 	}
 	
 	@Test
+	/*
+	 * 1. Spawn two threads for each item (101 and 102) and make all
+	 * threads execute an OrderStep with quantity=1 500 times 
+	 * asynchronously.
+	 * 
+	 * 2. Test when all threads have finished executing that the 
+	 * ItemQuantity for each item is 1000 indicating that the 
+	 * operations in step 1. were atomic.
+	 */
 	public void testAtomicity() {
 		ItemQuantity itemQ1 = new ItemQuantity(101, 1);
 		List<ItemQuantity> items1 = new ArrayList<ItemQuantity>();
@@ -51,14 +60,16 @@ public class ItemSupplierAtomicityTest {
 		items2.add(itemQ2);
 		OrderStep step2 = new OrderStep(1, items2);
 		
-		int repeats = 1000;
+		int repeats = 500;
 		
 		exec.submit(new ExecuteStepRunnable(step1, repeats));
+		exec.submit(new ExecuteStepRunnable(step1, repeats));
+		exec.submit(new ExecuteStepRunnable(step2, repeats));
 		exec.submit(new ExecuteStepRunnable(step2, repeats));
 		try {
 			exec.awaitTermination(10, TimeUnit.SECONDS);
 		} catch (InterruptedException e) {
-			fail();
+			fail("Threads didn't finish before timeout (10s)");
 		}
 		
 		List<ItemQuantity> results = null;
@@ -79,17 +90,19 @@ public class ItemSupplierAtomicityTest {
 
 		private OrderStep step;
 		private int repeats;
+		private CertainItemSupplier itemSupplier;
 		
 		public ExecuteStepRunnable(OrderStep step, int repeats) {
 			this.step = step;
 			this.repeats = repeats;
+			this.itemSupplier = CertainItemSupplier.getInstance();
 		}
 
 		@Override
 		public void run() {
 			for (int i = 0; i < repeats; i++) {
 				try {
-					CertainItemSupplier.getInstance().executeStep(step);
+					itemSupplier.executeStep(step);
 				} catch (OrderProcessingException e) {
 					e.printStackTrace();
 				}
