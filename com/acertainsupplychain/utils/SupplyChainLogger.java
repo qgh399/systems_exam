@@ -2,6 +2,9 @@ package com.acertainsupplychain.utils;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import com.acertainsupplychain.business.ItemQuantity;
@@ -9,8 +12,10 @@ import com.acertainsupplychain.business.OrderStep;
 
 public class SupplyChainLogger {
 	private PrintWriter writer;
+	private DateFormat dateFormat;
 	
 	public SupplyChainLogger(String logFilePath) throws OrderProcessingException {
+		dateFormat = new SimpleDateFormat("[yyyy-MM-dd HH:mm:ss] ");
 		try {
 			this.writer = new PrintWriter(logFilePath);
 		} catch (FileNotFoundException e) {
@@ -27,14 +32,14 @@ public class SupplyChainLogger {
 		for (OrderStep step : steps)
 		{
 			stepLogLine = stepToLogLine(step);
-			writer.println(stepLogLine);
+			writer.println(dateFormat.format(new Date()) + stepLogLine);
 		}
 		writer.flush();
 	}
 	
 	public void log(OrderStep step) {
 		String result = stepToLogLine(step);
-		writer.println(result.trim());
+		writer.println(dateFormat.format(new Date()) +  result.trim());
 		writer.flush();
 	}
 
