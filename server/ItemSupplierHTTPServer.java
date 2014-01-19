@@ -11,7 +11,7 @@ public class ItemSupplierHTTPServer {
 	private static CertainItemSupplier itemSupplier;
 	
 	public static void main(String[] args) {
-		int port = 8083;
+		int port = 8084;
 		ItemSupplierHTTPMessageHandler handler = new ItemSupplierHTTPMessageHandler();
 		initializeItemSupplierData(port);
 		if (SupplyChainHTTPServerUtility.createServer(port, handler)) {

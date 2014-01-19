@@ -17,7 +17,7 @@ import com.acertainsupplychain.utils.InvalidWorkflowException;
 import com.acertainsupplychain.utils.OrderProcessingException;
 import com.acertainsupplychain.utils.SupplyChainMessageTag;
 import com.acertainsupplychain.utils.SupplyChainResponse;
-import com.acertainsupplychain.utils.SupplyChainUtiliy;
+import com.acertainsupplychain.utils.SupplyChainUtility;
 
 public class OrderManagerHTTPMessageHandler extends AbstractHandler {
 
@@ -32,13 +32,13 @@ public class OrderManagerHTTPMessageHandler extends AbstractHandler {
 		response.setStatus(HttpServletResponse.SC_OK);
 		requestURI = request.getRequestURI();
 		
-		SupplyChainMessageTag messageTag = SupplyChainUtiliy.convertURItoMessageTag(requestURI);
+		SupplyChainMessageTag messageTag = SupplyChainUtility.convertURItoMessageTag(requestURI);
 		
 		switch (messageTag) 
 		{
 			case REGISTER:
-				String xml = SupplyChainUtiliy.extractPOSTDataFromRequest(request);
-				List<OrderStep> steps = (List<OrderStep>) SupplyChainUtiliy.deserializeXMLStringToObject(xml);
+				String xml = SupplyChainUtility.extractPOSTDataFromRequest(request);
+				List<OrderStep> steps = (List<OrderStep>) SupplyChainUtility.deserializeXMLStringToObject(xml);
 				SupplyChainResponse supplyChainResponse = new SupplyChainResponse();
 				try {
 					supplyChainResponse.setResponse(
@@ -49,7 +49,7 @@ public class OrderManagerHTTPMessageHandler extends AbstractHandler {
 				}
 				
 				response.getWriter().println(
-						SupplyChainUtiliy.serializeObjectToXMLString(supplyChainResponse));
+						SupplyChainUtility.serializeObjectToXMLString(supplyChainResponse));
 				
 				break;
 				
@@ -66,7 +66,7 @@ public class OrderManagerHTTPMessageHandler extends AbstractHandler {
 				}
 				
 				response.getWriter().println(
-						SupplyChainUtiliy.serializeObjectToXMLString(supplyChainResponse));
+						SupplyChainUtility.serializeObjectToXMLString(supplyChainResponse));
 				break;
 				
 			default:

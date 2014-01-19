@@ -8,11 +8,13 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import com.acertainsupplychain.utils.InvalidItemException;
 import com.acertainsupplychain.utils.OrderProcessingException;
+import com.acertainsupplychain.utils.SupplyChainLogger;
 
 public class CertainItemSupplier implements ItemSupplier{
 
 	private static CertainItemSupplier itemSupplier;
 	private HashMap<Integer, Integer> itemQuantityMap;
+	private SupplyChainLogger logger;
 	
 	public CertainItemSupplier() {
 		itemQuantityMap = new HashMap<Integer, Integer>();
@@ -45,9 +47,9 @@ public class CertainItemSupplier implements ItemSupplier{
 			}
 		}
 		
-		/*
-		 * TODO: Log durably
-		 */
+		// durable logging call
+		if (logger != null)
+			logger.log(step);
 		
 		/*
 		 * Increment the quantity of ordered items
@@ -83,6 +85,8 @@ public class CertainItemSupplier implements ItemSupplier{
 		}
 	}
 
-	
+	public void initializeLogger(SupplyChainLogger logger) {
+		this.logger = logger;
+	}
 
 }

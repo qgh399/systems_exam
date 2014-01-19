@@ -29,6 +29,13 @@ public class SupplyChainLogger {
 			stepLogLine = stepToLogLine(step);
 			writer.println(stepLogLine);
 		}
+		writer.flush();
+	}
+	
+	public void log(OrderStep step) {
+		String result = stepToLogLine(step);
+		writer.println(result.trim());
+		writer.flush();
 	}
 
 	public String stepToLogLine(OrderStep step) {
@@ -39,5 +46,7 @@ public class SupplyChainLogger {
 		}
 		return result.trim();
 	}
+
+	
 	
 }

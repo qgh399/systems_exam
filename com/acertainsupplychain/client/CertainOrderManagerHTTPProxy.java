@@ -18,7 +18,7 @@ import com.acertainsupplychain.utils.InvalidWorkflowException;
 import com.acertainsupplychain.utils.OrderProcessingException;
 import com.acertainsupplychain.utils.SupplyChainConstants;
 import com.acertainsupplychain.utils.SupplyChainMessageTag;
-import com.acertainsupplychain.utils.SupplyChainUtiliy;
+import com.acertainsupplychain.utils.SupplyChainUtility;
 
 public class CertainOrderManagerHTTPProxy implements OrderManager {
 
@@ -44,7 +44,7 @@ public class CertainOrderManagerHTTPProxy implements OrderManager {
 
 	@Override
 	public int registerOrderWorkflow(List<OrderStep> steps) throws OrderProcessingException {
-		String orderStepsXmlString = SupplyChainUtiliy.serializeObjectToXMLString(steps);
+		String orderStepsXmlString = SupplyChainUtility.serializeObjectToXMLString(steps);
 		Buffer requestContent = new ByteArrayBuffer(orderStepsXmlString);
 		
 		String urlString = serverAddress + "/" + SupplyChainMessageTag.REGISTER;
@@ -53,7 +53,7 @@ public class CertainOrderManagerHTTPProxy implements OrderManager {
 		exchange.setMethod("POST");
 		exchange.setRequestContent(requestContent);
 		
-		int workflowId = (Integer) SupplyChainUtiliy.sendAndRecv(client, exchange);
+		int workflowId = (Integer) SupplyChainUtility.sendAndRecv(client, exchange);
 		
 		return workflowId;
 	}
@@ -76,7 +76,7 @@ public class CertainOrderManagerHTTPProxy implements OrderManager {
 		
 		List<StepStatus> result = null;
 		try {
-			result = (List<StepStatus>) SupplyChainUtiliy.sendAndRecv(client, exchange);
+			result = (List<StepStatus>) SupplyChainUtility.sendAndRecv(client, exchange);
 		} catch (OrderProcessingException e) {
 			throw (InvalidWorkflowException) e;
 		}

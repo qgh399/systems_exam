@@ -16,7 +16,7 @@ import com.acertainsupplychain.utils.InvalidItemException;
 import com.acertainsupplychain.utils.OrderProcessingException;
 import com.acertainsupplychain.utils.SupplyChainConstants;
 import com.acertainsupplychain.utils.SupplyChainMessageTag;
-import com.acertainsupplychain.utils.SupplyChainUtiliy;
+import com.acertainsupplychain.utils.SupplyChainUtility;
 
 public class CertainItemSupplierHTTPProxy implements ItemSupplier{
 
@@ -36,7 +36,7 @@ public class CertainItemSupplierHTTPProxy implements ItemSupplier{
 
 	@Override
 	public void executeStep(OrderStep step) throws OrderProcessingException {
-		String stepXmlString = SupplyChainUtiliy.serializeObjectToXMLString(step);
+		String stepXmlString = SupplyChainUtility.serializeObjectToXMLString(step);
 		Buffer requestContent = new ByteArrayBuffer(stepXmlString);
 		
 		String urlString = serverAddress + "/" + SupplyChainMessageTag.EXECUTE;
@@ -45,12 +45,12 @@ public class CertainItemSupplierHTTPProxy implements ItemSupplier{
 		exchange.setMethod("POST");
 		exchange.setRequestContent(requestContent);
 		
-		SupplyChainUtiliy.sendAndRecv(client, exchange);
+		SupplyChainUtility.sendAndRecv(client, exchange);
 	}
 
 	@Override
 	public List<ItemQuantity> getOrdersPerItem(Set<Integer> itemIds) throws InvalidItemException {
-		String itemIdsXmlString = SupplyChainUtiliy.serializeObjectToXMLString(itemIds);
+		String itemIdsXmlString = SupplyChainUtility.serializeObjectToXMLString(itemIds);
 		Buffer requestContent = new ByteArrayBuffer(itemIdsXmlString);
 		
 		String urlString = serverAddress + "/" + SupplyChainMessageTag.ORDERSPERITEM;
@@ -61,7 +61,7 @@ public class CertainItemSupplierHTTPProxy implements ItemSupplier{
 		
 		List<ItemQuantity> response = null;
 		try {
-			response = (List<ItemQuantity>) SupplyChainUtiliy.sendAndRecv(client, exchange);
+			response = (List<ItemQuantity>) SupplyChainUtility.sendAndRecv(client, exchange);
 		} catch (OrderProcessingException e) {
 			throw (InvalidItemException) e;
 		}

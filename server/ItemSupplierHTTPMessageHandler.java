@@ -16,7 +16,7 @@ import com.acertainsupplychain.utils.InvalidItemException;
 import com.acertainsupplychain.utils.OrderProcessingException;
 import com.acertainsupplychain.utils.SupplyChainMessageTag;
 import com.acertainsupplychain.utils.SupplyChainResponse;
-import com.acertainsupplychain.utils.SupplyChainUtiliy;
+import com.acertainsupplychain.utils.SupplyChainUtility;
 
 public class ItemSupplierHTTPMessageHandler extends AbstractHandler{
 
@@ -31,12 +31,12 @@ public class ItemSupplierHTTPMessageHandler extends AbstractHandler{
 		response.setStatus(HttpServletResponse.SC_OK);
 		requestURI = request.getRequestURI();
 		
-		SupplyChainMessageTag messageTag = SupplyChainUtiliy.convertURItoMessageTag(requestURI);
+		SupplyChainMessageTag messageTag = SupplyChainUtility.convertURItoMessageTag(requestURI);
 		
 		switch (messageTag) {
 			case EXECUTE:
-				String xml = SupplyChainUtiliy.extractPOSTDataFromRequest(request);
-				OrderStep step = (OrderStep) SupplyChainUtiliy.deserializeXMLStringToObject(xml);
+				String xml = SupplyChainUtility.extractPOSTDataFromRequest(request);
+				OrderStep step = (OrderStep) SupplyChainUtility.deserializeXMLStringToObject(xml);
 				SupplyChainResponse supplyChainResponse = new SupplyChainResponse();
 				try 
 				{
@@ -47,13 +47,13 @@ public class ItemSupplierHTTPMessageHandler extends AbstractHandler{
 				}
 				
 				response.getWriter().println(
-						SupplyChainUtiliy.serializeObjectToXMLString(supplyChainResponse));
+						SupplyChainUtility.serializeObjectToXMLString(supplyChainResponse));
 				
 				break;
 				
 			case ORDERSPERITEM:
-				xml = SupplyChainUtiliy.extractPOSTDataFromRequest(request);
-				Set<Integer> itemIds = (Set<Integer>) SupplyChainUtiliy.deserializeXMLStringToObject(xml);
+				xml = SupplyChainUtility.extractPOSTDataFromRequest(request);
+				Set<Integer> itemIds = (Set<Integer>) SupplyChainUtility.deserializeXMLStringToObject(xml);
 				supplyChainResponse = new SupplyChainResponse();
 				try {
 					supplyChainResponse.setResponse(
@@ -64,7 +64,7 @@ public class ItemSupplierHTTPMessageHandler extends AbstractHandler{
 				}
 				
 				response.getWriter().println(
-						SupplyChainUtiliy.serializeObjectToXMLString(supplyChainResponse));
+						SupplyChainUtility.serializeObjectToXMLString(supplyChainResponse));
 				
 				break;
 				

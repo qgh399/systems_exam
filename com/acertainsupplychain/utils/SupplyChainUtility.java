@@ -13,7 +13,7 @@ import org.eclipse.jetty.client.HttpExchange;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 
-public final class SupplyChainUtiliy {
+public final class SupplyChainUtility {
 	
 	/**
 	 * Serializes an object to an xml string

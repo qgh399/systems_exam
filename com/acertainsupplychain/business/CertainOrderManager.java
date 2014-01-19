@@ -66,6 +66,10 @@ public class CertainOrderManager implements OrderManager{
 				throw new OrderProcessingException("Step malformed, no item supplier with ID: " + supplierId);
 		}
 		
+		// durable logging call
+		if (logger != null)
+			logger.log(steps);
+		
 		// An atomic integer is used to represent the ID for each workflow
 		// to make sure that different threads accessing the same OrderManager
 		// don't create workflows with the same IDs.
@@ -84,9 +88,6 @@ public class CertainOrderManager implements OrderManager{
 			}
 			results.add(exec.submit(task));
 		}
-		
-		// durable logging call
-		logger.log(steps);
 		
 		waitForItemSupplierUpdates(id, results);
 		return id;
