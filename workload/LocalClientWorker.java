@@ -17,7 +17,7 @@ public class LocalClientWorker implements Callable<WorkerResult> {
 	private WorkloadConfiguration config;
 	private Random rand = new Random();
 	
-	public LocalClientWorker(String serverAddress, WorkloadConfiguration config) throws Exception {
+	public LocalClientWorker(WorkloadConfiguration config) throws Exception {
 		this.config = config;
 		localClient = new CertainItemSupplierHTTPProxy(config.getServerAddress());
 	}
@@ -38,7 +38,17 @@ public class LocalClientWorker implements Callable<WorkerResult> {
 			operationDistribution(randomFloat);
 		}
 		
-		return null;
+		count = 1;
+		startTimeInNanoSecs = System.nanoTime();
+		while (count++ <= config.getNumRuns()) {
+			randomFloat = rand.nextFloat() * 100f;
+			if(operationDistribution(randomFloat))
+				successfulInteractions++;
+			
+		}
+		endTimeInNanoSecs = System.nanoTime();
+		timeForRunsInNanoSecs += (endTimeInNanoSecs - startTimeInNanoSecs);
+		return new WorkerResult(successfulInteractions, timeForRunsInNanoSecs, config.getNumRuns());
 	}
 
 	private boolean operationDistribution(float randomFloat) {

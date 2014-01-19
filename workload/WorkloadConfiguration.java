@@ -8,15 +8,17 @@ public class WorkloadConfiguration {
 	private int numRuns;
 	private float percentWriteOperation;
 	private int numItemsPerStep;
+	private int numStepsPerWorkflow;
 
 	public WorkloadConfiguration(String serverAddress, int numItems,
-			int numWarmupRuns, int numRuns, float percentWriteOperation, int numItemsPerStep) {
+			int numWarmupRuns, int numRuns, float percentWriteOperation, int numItemsPerStep, int numStepsPerWorkflow) {
 		this.serverAddress = serverAddress;
 		this.numItems = numItems;
 		this.numWarmupRuns = numWarmupRuns;
 		this.numRuns = numRuns;
 		this.percentWriteOperation = percentWriteOperation;
-		this.setNumItemsPerStep(numItemsPerStep);
+		this.numItemsPerStep = numItemsPerStep;
+		this.numStepsPerWorkflow = numStepsPerWorkflow;
 	}
 
 	public String getServerAddress() {
@@ -65,6 +67,14 @@ public class WorkloadConfiguration {
 
 	public void setNumItemsPerStep(int numItemsPerStep) {
 		this.numItemsPerStep = numItemsPerStep;
+	}
+
+	public int getNumStepsPerWorkflow() {
+		return numStepsPerWorkflow;
+	}
+
+	public void setNumStepsPerWorkflow(int numStepsPerWorkflow) {
+		this.numStepsPerWorkflow = numStepsPerWorkflow;
 	}
 
 }
