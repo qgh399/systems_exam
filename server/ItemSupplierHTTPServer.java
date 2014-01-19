@@ -13,7 +13,7 @@ public class ItemSupplierHTTPServer {
 	private static CertainItemSupplier itemSupplier;
 	
 	public static void main(String[] args) throws OrderProcessingException {
-		int port = 8084;
+		int port = 8088;
 		
 		String logFilePath = "itemSupplier" + port + "Log.txt";
 		SupplyChainLogger logger = new SupplyChainLogger(logFilePath);
@@ -39,6 +39,13 @@ public class ItemSupplierHTTPServer {
 			supplierItemIds.add(201);
 			supplierItemIds.add(202);
 			supplierItemIds.add(203);
+		}
+		if (port == 8088) { 
+			int numItems = 100;
+			supplierItemIds = new HashSet<Integer>();
+			for (int i = 1; i <= numItems; i++) {
+				supplierItemIds.add(i);
+			}
 		}
 		
 		itemSupplier.initializeItems(supplierItemIds);

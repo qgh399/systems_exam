@@ -72,6 +72,7 @@ public class OrderManagerWorker implements Callable<WorkerResult> {
 				}
 				workflow.add(new OrderStep(port, step));
 			}
+			orderManager.registerOrderWorkflow(workflow);
 		}
 		catch (Exception e) {
 			e.printStackTrace();

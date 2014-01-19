@@ -1,5 +1,7 @@
 package workload;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -20,9 +22,9 @@ public class WorkloadExperiment {
 	
 	public static void main(String[] args) throws Exception {
 		int numItems = 100;
-		final int port = 8083;
-		int numLocalClients = 10;
-		int numOrderManagers = 10;
+		final int port = 8088;
+		int numLocalClients = 5;
+		int numOrderManagers = 5;
 		int numConcurrentThreads = numLocalClients + numOrderManagers;
 		String serverAddress = "http://localhost:" + port;
 		int numWarmupRuns = 20;
@@ -35,7 +37,7 @@ public class WorkloadExperiment {
 				numWarmupRuns, numRuns, percentWriteOperation, numItemsPerStep, numStepsPerWorkflow);
 		
 		System.out.println("Starting server ...");
-		startItemSupplier(numItems, port);
+		//startItemSupplier(numItems, port);
 		System.out.println("Server started.");
 		
 		List<WorkerResult> workerRunResults = new ArrayList<WorkerResult>();
@@ -67,14 +69,38 @@ public class WorkloadExperiment {
 		exec.shutdownNow();
 		System.out.println("#### Reporting ####");
 		reportMetric(workerRunResults);
+		System.out.println("####   Done    ####");
 		
 	}
 
-	private static void reportMetric(List<WorkerResult> workerRunResults) {
-		for (WorkerResult result : workerRunResults) {
-			System.out.println(result.getSuccessfulInteractions());
-			System.out.println(result.getTimeForRunsInNanoSecs());
+	public static void reportMetric(List<WorkerResult> workerRunResults) {
+		
+		PrintWriter resultFile = null;
+		try {
+			resultFile = new PrintWriter(
+					"data/clients_" + workerRunResults.size() + ".txt");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
 		}
+	
+		
+		int workerNr = 1;
+		resultFile.println(
+				"#WorkerNr "
+				+ "TotalRuns "
+				+ "SuccessfulInteractions "
+				+ "ElapsedTimeInNanoSecs");
+		
+		for (WorkerResult result : workerRunResults)
+		{
+			resultFile.println(
+					workerNr + " " + result.getNumRuns()
+					+ " " + result.getSuccessfulInteractions() 
+					+ " " + result.getTimeForRunsInNanoSecs());
+			workerNr++;
+		}
+		
+		resultFile.close();
 	}
 
 	private static void startItemSupplier(int numItems, final int port) {
