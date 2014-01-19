@@ -46,7 +46,7 @@ public class ItemSupplierAtomicityTest {
 	 * asynchronously.
 	 * 
 	 * 2. Test when all threads have finished executing that the 
-	 * ItemQuantity for each item is 1000 indicating that the 
+	 * ItemQuantity for both items is 1000 indicating that the 
 	 * operations in step 1. were atomic.
 	 */
 	public void testAtomicity() {

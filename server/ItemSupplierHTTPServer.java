@@ -13,7 +13,7 @@ public class ItemSupplierHTTPServer {
 	private static CertainItemSupplier itemSupplier;
 	
 	public static void main(String[] args) throws OrderProcessingException {
-		int port = 8083;
+		int port = 8084;
 		
 		String logFilePath = "itemSupplier" + port + "Log.txt";
 		SupplyChainLogger logger = new SupplyChainLogger(logFilePath);

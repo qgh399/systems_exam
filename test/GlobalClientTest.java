@@ -61,19 +61,17 @@ public class GlobalClientTest {
 		order2.add(itemQ6);
 		workflow.add(new OrderStep(8084, order2));
 		
-		int firstWorkflowId = -1;
+		int workflowId = -1;
 		try {
-			firstWorkflowId = globalClient.registerOrderWorkflow(workflow);
+			workflowId = globalClient.registerOrderWorkflow(workflow);
 		} catch (OrderProcessingException e) {
 			e.printStackTrace();
 			fail();
 		}
 		
-		assertEquals(1, firstWorkflowId);
-		
 		List<StepStatus> stepStatus = null;
 		try {
-			stepStatus = globalClient.getOrderWorkflowStatus(firstWorkflowId);
+			stepStatus = globalClient.getOrderWorkflowStatus(workflowId);
 		} catch (InvalidWorkflowException e) {
 			e.printStackTrace();
 			fail();
@@ -84,4 +82,40 @@ public class GlobalClientTest {
 		}
 	}
 	
+	@Test
+	public void workflowIncludingNonexistingItemSupplierFails() {
+		List<OrderStep> workflow = new ArrayList<OrderStep>();
+		
+		/*
+		 * Include one good order in workflow
+		 */
+		List<ItemQuantity> orderToGoodSupplier = new ArrayList<ItemQuantity>();
+		ItemQuantity itemQ1 = new ItemQuantity(101, 10);
+		ItemQuantity itemQ2 = new ItemQuantity(102, 11);
+		ItemQuantity itemQ3 = new ItemQuantity(103, 12);
+		orderToGoodSupplier.add(itemQ1);
+		orderToGoodSupplier.add(itemQ2);
+		orderToGoodSupplier.add(itemQ3);
+		workflow.add(new OrderStep(8083, orderToGoodSupplier));
+		
+		/*
+		 * Include an order to Satan that should cause an exception
+		 */
+		List<ItemQuantity> orderToSatan = new ArrayList<ItemQuantity>();
+		ItemQuantity itemQ4 = new ItemQuantity(201, 10);
+		ItemQuantity itemQ5 = new ItemQuantity(202, 11);
+		ItemQuantity itemQ6 = new ItemQuantity(203, 12);
+		orderToSatan.add(itemQ4);
+		orderToSatan.add(itemQ5);
+		orderToSatan.add(itemQ6);
+		workflow.add(new OrderStep(666, orderToSatan));
+		
+		boolean exceptionWasThrown = false;
+		try {
+			globalClient.registerOrderWorkflow(workflow);
+		} catch (OrderProcessingException e) {
+			exceptionWasThrown = true;
+		}
+		assertTrue(exceptionWasThrown);
+	}
 }
