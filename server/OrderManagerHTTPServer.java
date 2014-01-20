@@ -2,9 +2,9 @@ package server;
 
 import java.util.HashMap;
 
-import com.acertainsupplychain.business.CertainOrderManager;
-import com.acertainsupplychain.utils.OrderProcessingException;
-import com.acertainsupplychain.utils.SupplyChainLogger;
+import utils.OrderProcessingException;
+import utils.SupplyChainLogger;
+import business.CertainOrderManager;
 
 public class OrderManagerHTTPServer {
 	

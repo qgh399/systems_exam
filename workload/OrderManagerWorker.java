@@ -8,9 +8,9 @@ import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.Callable;
 
-import com.acertainsupplychain.business.CertainOrderManager;
-import com.acertainsupplychain.business.ItemQuantity;
-import com.acertainsupplychain.business.OrderStep;
+import business.CertainOrderManager;
+import business.ItemQuantity;
+import business.OrderStep;
 
 public class OrderManagerWorker implements Callable<WorkerResult> {
 

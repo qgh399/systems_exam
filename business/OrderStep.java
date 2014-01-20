@@ -1,4 +1,4 @@
-package com.acertainsupplychain.business;
+package business;
 
 import java.util.List;
 

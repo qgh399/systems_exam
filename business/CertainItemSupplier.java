@@ -1,4 +1,4 @@
-package com.acertainsupplychain.business;
+package business;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.acertainsupplychain.utils.InvalidItemException;
-import com.acertainsupplychain.utils.OrderProcessingException;
-import com.acertainsupplychain.utils.SupplyChainLogger;
+import utils.InvalidItemException;
+import utils.OrderProcessingException;
+import utils.SupplyChainLogger;
 
 public class CertainItemSupplier implements ItemSupplier{
 

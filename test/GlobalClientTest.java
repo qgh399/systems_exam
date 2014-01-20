@@ -8,13 +8,13 @@ import java.util.List;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.acertainsupplychain.client.CertainOrderManagerHTTPProxy;
-import com.acertainsupplychain.utils.InvalidWorkflowException;
-import com.acertainsupplychain.utils.OrderProcessingException;
-import com.acertainsupplychain.business.CertainOrderManager;
-import com.acertainsupplychain.business.OrderManager.StepStatus;
-import com.acertainsupplychain.business.OrderStep;
-import com.acertainsupplychain.business.ItemQuantity;
+import utils.InvalidWorkflowException;
+import utils.OrderProcessingException;
+import business.CertainOrderManager;
+import business.ItemQuantity;
+import business.OrderStep;
+import business.OrderManager.StepStatus;
+import client.CertainOrderManagerHTTPProxy;
 
 public class GlobalClientTest {
 

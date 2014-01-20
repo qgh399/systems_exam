@@ -1,4 +1,4 @@
-package com.acertainsupplychain.client;
+package client;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -11,14 +11,13 @@ import org.eclipse.jetty.io.ByteArrayBuffer;
 import org.eclipse.jetty.util.thread.QueuedThreadPool;
 
 import server.SupplyChainHTTPServerUtility;
-
-import com.acertainsupplychain.business.OrderManager;
-import com.acertainsupplychain.business.OrderStep;
-import com.acertainsupplychain.utils.InvalidWorkflowException;
-import com.acertainsupplychain.utils.OrderProcessingException;
-import com.acertainsupplychain.utils.SupplyChainConstants;
-import com.acertainsupplychain.utils.SupplyChainMessageTag;
-import com.acertainsupplychain.utils.SupplyChainUtility;
+import utils.InvalidWorkflowException;
+import utils.OrderProcessingException;
+import utils.SupplyChainConstants;
+import utils.SupplyChainMessageTag;
+import utils.SupplyChainUtility;
+import business.OrderManager;
+import business.OrderStep;
 
 public class CertainOrderManagerHTTPProxy implements OrderManager {
 

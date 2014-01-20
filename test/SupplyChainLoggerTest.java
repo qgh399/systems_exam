@@ -8,9 +8,9 @@ import java.util.List;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.acertainsupplychain.business.ItemQuantity;
-import com.acertainsupplychain.business.OrderStep;
-import com.acertainsupplychain.utils.SupplyChainLogger;
+import utils.SupplyChainLogger;
+import business.ItemQuantity;
+import business.OrderStep;
 
 public class SupplyChainLoggerTest {
 

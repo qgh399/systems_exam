@@ -1,4 +1,4 @@
-package com.acertainsupplychain.utils;
+package utils;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -7,8 +7,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import com.acertainsupplychain.business.ItemQuantity;
-import com.acertainsupplychain.business.OrderStep;
+import business.ItemQuantity;
+import business.OrderStep;
 
 public class SupplyChainLogger {
 	private PrintWriter writer;

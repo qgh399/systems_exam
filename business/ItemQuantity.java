@@ -1,4 +1,4 @@
-package com.acertainsupplychain.business;
+package business;
 
 /**
  * Represents an item and an associated quantity.

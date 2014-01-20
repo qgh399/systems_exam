@@ -1,9 +1,9 @@
-package com.acertainsupplychain.business;
+package business;
 
 import java.util.List;
 
-import com.acertainsupplychain.utils.InvalidWorkflowException;
-import com.acertainsupplychain.utils.OrderProcessingException;
+import utils.InvalidWorkflowException;
+import utils.OrderProcessingException;
 
 /**
  * The OrderManager interface abstracts an integration broker for a supply chain

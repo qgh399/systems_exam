@@ -1,4 +1,4 @@
-package com.acertainsupplychain.client;
+package client;
 
 import java.util.List;
 import java.util.Set;
@@ -9,14 +9,14 @@ import org.eclipse.jetty.io.Buffer;
 import org.eclipse.jetty.io.ByteArrayBuffer;
 import org.eclipse.jetty.util.thread.QueuedThreadPool;
 
-import com.acertainsupplychain.business.ItemQuantity;
-import com.acertainsupplychain.business.ItemSupplier;
-import com.acertainsupplychain.business.OrderStep;
-import com.acertainsupplychain.utils.InvalidItemException;
-import com.acertainsupplychain.utils.OrderProcessingException;
-import com.acertainsupplychain.utils.SupplyChainConstants;
-import com.acertainsupplychain.utils.SupplyChainMessageTag;
-import com.acertainsupplychain.utils.SupplyChainUtility;
+import utils.InvalidItemException;
+import utils.OrderProcessingException;
+import utils.SupplyChainConstants;
+import utils.SupplyChainMessageTag;
+import utils.SupplyChainUtility;
+import business.ItemQuantity;
+import business.ItemSupplier;
+import business.OrderStep;
 
 public class CertainItemSupplierHTTPProxy implements ItemSupplier{
 

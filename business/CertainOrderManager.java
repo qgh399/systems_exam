@@ -1,4 +1,4 @@
-package com.acertainsupplychain.business;
+package business;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -15,10 +15,10 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import com.acertainsupplychain.utils.InvalidWorkflowException;
-import com.acertainsupplychain.utils.OrderProcessingException;
-import com.acertainsupplychain.utils.SupplyChainConstants;
-import com.acertainsupplychain.utils.SupplyChainLogger;
+import utils.InvalidWorkflowException;
+import utils.OrderProcessingException;
+import utils.SupplyChainConstants;
+import utils.SupplyChainLogger;
 
 public class CertainOrderManager implements OrderManager{
 

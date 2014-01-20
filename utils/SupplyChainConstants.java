@@ -1,4 +1,4 @@
-package com.acertainsupplychain.utils;
+package utils;
 
 public final class SupplyChainConstants {
 	

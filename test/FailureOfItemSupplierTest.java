@@ -8,12 +8,12 @@ import java.util.List;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.acertainsupplychain.business.ItemQuantity;
-import com.acertainsupplychain.business.OrderStep;
-import com.acertainsupplychain.business.OrderManager.StepStatus;
-import com.acertainsupplychain.client.CertainOrderManagerHTTPProxy;
-import com.acertainsupplychain.utils.InvalidWorkflowException;
-import com.acertainsupplychain.utils.OrderProcessingException;
+import utils.InvalidWorkflowException;
+import utils.OrderProcessingException;
+import business.ItemQuantity;
+import business.OrderStep;
+import business.OrderManager.StepStatus;
+import client.CertainOrderManagerHTTPProxy;
 
 public class FailureOfItemSupplierTest {
 

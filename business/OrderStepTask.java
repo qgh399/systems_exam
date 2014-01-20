@@ -1,10 +1,10 @@
-package com.acertainsupplychain.business;
+package business;
 
 import java.util.concurrent.Callable;
 
-import com.acertainsupplychain.business.OrderManager.StepStatus;
-import com.acertainsupplychain.client.CertainItemSupplierHTTPProxy;
-import com.acertainsupplychain.utils.OrderProcessingException;
+import utils.OrderProcessingException;
+import business.OrderManager.StepStatus;
+import client.CertainItemSupplierHTTPProxy;
 
 public class OrderStepTask implements Callable<StepStatus>{
 

@@ -9,9 +9,9 @@ import java.util.Set;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.acertainsupplychain.business.ItemQuantity;
-import com.acertainsupplychain.client.CertainItemSupplierHTTPProxy;
-import com.acertainsupplychain.utils.InvalidItemException;
+import utils.InvalidItemException;
+import business.ItemQuantity;
+import client.CertainItemSupplierHTTPProxy;
 
 public class FailureOfOrderManagerTest {
 

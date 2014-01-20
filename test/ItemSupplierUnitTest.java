@@ -10,11 +10,11 @@ import java.util.Set;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.acertainsupplychain.business.CertainItemSupplier;
-import com.acertainsupplychain.business.ItemQuantity;
-import com.acertainsupplychain.business.OrderStep;
-import com.acertainsupplychain.utils.InvalidItemException;
-import com.acertainsupplychain.utils.OrderProcessingException;
+import utils.InvalidItemException;
+import utils.OrderProcessingException;
+import business.CertainItemSupplier;
+import business.ItemQuantity;
+import business.OrderStep;
 
 public class ItemSupplierUnitTest {
 	

@@ -3,9 +3,9 @@ package server;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.acertainsupplychain.business.CertainItemSupplier;
-import com.acertainsupplychain.utils.OrderProcessingException;
-import com.acertainsupplychain.utils.SupplyChainLogger;
+import utils.OrderProcessingException;
+import utils.SupplyChainLogger;
+import business.CertainItemSupplier;
 
 public class ItemSupplierHTTPServer {
 	
@@ -13,7 +13,7 @@ public class ItemSupplierHTTPServer {
 	private static CertainItemSupplier itemSupplier;
 	
 	public static void main(String[] args) throws OrderProcessingException {
-		int port = 8088;
+		int port = 8083;
 		
 		String logFilePath = "itemSupplier" + port + "Log.txt";
 		SupplyChainLogger logger = new SupplyChainLogger(logFilePath);

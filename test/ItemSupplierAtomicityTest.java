@@ -13,12 +13,12 @@ import java.util.concurrent.TimeUnit;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.acertainsupplychain.business.CertainItemSupplier;
-import com.acertainsupplychain.business.ItemQuantity;
-import com.acertainsupplychain.business.OrderStep;
-import com.acertainsupplychain.utils.InvalidItemException;
-import com.acertainsupplychain.utils.OrderProcessingException;
-import com.acertainsupplychain.utils.SupplyChainConstants;
+import utils.InvalidItemException;
+import utils.OrderProcessingException;
+import utils.SupplyChainConstants;
+import business.CertainItemSupplier;
+import business.ItemQuantity;
+import business.OrderStep;
 
 public class ItemSupplierAtomicityTest {
 

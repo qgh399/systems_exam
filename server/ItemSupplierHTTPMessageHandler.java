@@ -10,13 +10,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.handler.AbstractHandler;
 
-import com.acertainsupplychain.business.CertainItemSupplier;
-import com.acertainsupplychain.business.OrderStep;
-import com.acertainsupplychain.utils.InvalidItemException;
-import com.acertainsupplychain.utils.OrderProcessingException;
-import com.acertainsupplychain.utils.SupplyChainMessageTag;
-import com.acertainsupplychain.utils.SupplyChainResponse;
-import com.acertainsupplychain.utils.SupplyChainUtility;
+import utils.InvalidItemException;
+import utils.OrderProcessingException;
+import utils.SupplyChainMessageTag;
+import utils.SupplyChainResponse;
+import utils.SupplyChainUtility;
+import business.CertainItemSupplier;
+import business.OrderStep;
 
 public class ItemSupplierHTTPMessageHandler extends AbstractHandler{
 

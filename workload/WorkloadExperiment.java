@@ -12,8 +12,7 @@ import java.util.concurrent.Future;
 
 import server.ItemSupplierHTTPMessageHandler;
 import server.SupplyChainHTTPServerUtility;
-
-import com.acertainsupplychain.business.CertainItemSupplier;
+import business.CertainItemSupplier;
 
 public class WorkloadExperiment {
 	
