@@ -23,12 +23,12 @@ public class WorkloadExperiment {
 	public static void main(String[] args) throws Exception {
 		int numItems = 100;
 		final int port = 8088;
-		int numLocalClients = 5;
-		int numOrderManagers = 5;
+		int numLocalClients = 100;
+		int numOrderManagers = 0;
 		int numConcurrentThreads = numLocalClients + numOrderManagers;
 		String serverAddress = "http://localhost:" + port;
 		int numWarmupRuns = 20;
-		int numRuns = 40;
+		int numRuns = 100;
 		float percentWriteOperation = 80f; // 80% chance of a write operation
 		int numItemsPerStep = 5;
 		int numStepsPerWorkflow = 3;
@@ -37,7 +37,7 @@ public class WorkloadExperiment {
 				numWarmupRuns, numRuns, percentWriteOperation, numItemsPerStep, numStepsPerWorkflow);
 		
 		System.out.println("Starting server ...");
-		//startItemSupplier(numItems, port);
+		startItemSupplier(numItems, port);
 		System.out.println("Server started.");
 		
 		List<WorkerResult> workerRunResults = new ArrayList<WorkerResult>();
@@ -78,7 +78,7 @@ public class WorkloadExperiment {
 		PrintWriter resultFile = null;
 		try {
 			resultFile = new PrintWriter(
-					"data/clients_" + workerRunResults.size() + ".txt");
+					"data/clients_" + System.currentTimeMillis() + ".txt");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
